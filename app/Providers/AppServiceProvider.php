@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
+
+use Illuminate\Support\Facades\Gate;
+use App\Policies\PostPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Paginator::useBootstrap();
+
+        Gate::define('update-post', [PostPolicy::class, 'update']);
+        Gate::define('delete-post', [PostPolicy::class, 'delete']);
     }
 }

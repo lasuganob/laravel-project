@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+@import 'variables';
+
+@import 'bootstrap/scss/bootstrap';
+
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+@import "datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css";
+@import 'datatables.net-select-bs5/css/select.bootstrap5.css';
+
+/* DataTables styling */
+#posts-table_wrapper .wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+#posts-table_wrapper table td.title {
+    max-width: 40%;
+    width: 100%;
+}
+#posts-table_wrapper table td.action-buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#posts-table_wrapper .length-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#posts-table_wrapper .length-options select {
+    appearance: none;
+    /* safari */
+    -webkit-appearance: none;
+    /* other styles for aesthetics */
+    width: 100%;
+    font-size: 0.85rem;
+    background-color: #fff;
+    border: 1px solid #caced1;
+    border-radius: 0.25rem;
+    color: #000;
+    cursor: pointer;
+}
+#posts-table_wrapper .length-options span { margin-left: 10px; }

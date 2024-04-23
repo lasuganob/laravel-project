@@ -16,6 +16,16 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route(role_prefix() . '.posts.index')" :active="request()->routeIs([
+                        role_prefix() . '.posts.index',
+                        role_prefix() . '.posts.create',
+                        role_prefix() . '.posts.edit',
+                        role_prefix() . '.posts.show',
+                        ])">
+                        {{ __('Posts') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
