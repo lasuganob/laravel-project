@@ -1,9 +1,9 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 ## Specifications:
-- PHP version: 8.1.9
-- Node version: 18.7.0
-- NPM version: 8.15.0
+- PHP version: 8.3 (min. requirement for laravel 11)
+- MySQL 8
+- Node version: 20.12.2
 
 ## Run locally
 **Note:** I used ***Laragon*** as my development environment.
