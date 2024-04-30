@@ -3,34 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
+use App\Interfaces\Post\PostRepositoryInterface;
+
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 
 class PostController extends Controller
 {
-    // Resources
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function __construct(
+        private PostRepositoryInterface $postRepository
+    ) {
+    }
+
+    public function index() : View
+    {
+        return view('posts.index')->with('posts_url', route(role_prefix() . ".posts.data"));
+    }
+
+    public function create() : View
     {
         return view('posts.create');
     }
     /**
      * Store a newly created resource in storage.
-     * @tobedeleted: unused method - already used livewire for storing posts
      */
-    public function store(Request $request)
+    public function store(PostRequest $request) : RedirectResponse
     {
-
-        Post::create([
-            'user_id'=> auth()->user()->id,
-            'title' => $request->title,
-            'content'=> $request->content,
-            'status'=> $request->status ? $request->status : 0,
-        ]);
-
+        $this->postRepository->storePost($request->prepareInsert());
         return redirect()->route(role_prefix() . '.posts.index')->with('success_add', 'Post Successfully Added');
     }
 
@@ -48,7 +52,7 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(Post $post) : View
     {
         return view('posts.edit', compact('post'));
     }
@@ -57,28 +61,28 @@ class PostController extends Controller
      * Update the specified resource in storage.
      * @tobedeleted: unused method - already used livewire for updating posts
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post): RedirectResponse
     {
-        Gate::authorize('update', $post);
-
-        $post->update([
-            'title' => $request->title,
-            'content' => $request->content,
-            'status' => $request->status ? $request->status : 0,
-        ]);
-
+        $data = $request->validated();
+        $this->postRepository->updatePost($post, $data);
         return redirect()->route(role_prefix() . '.posts.index')->with('success_edit', 'Post Successfully Edited');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post): RedirectResponse
     {
-        Gate::authorize('delete', $post);
-
-        $post->delete();
-
+        $this->postRepository->deletePost($post);
         return redirect()->route(role_prefix() . '.posts.index')->with('success_delete', 'Post Successfully Deleted');
+    }
+
+    /**
+     * Query posts records for Users
+     */
+    public function getPosts(DataTables $dataTables, Post $post) : JsonResponse
+    {
+        $posts = $this->postRepository->getPosts($dataTables, $post, role_prefix());
+        return $posts;
     }
 }

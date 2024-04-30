@@ -16,7 +16,7 @@ class PostSeeder extends Seeder
     {
         $posts = Post::factory()->count(100)->make();
 
-        $posts->chunk(2000)->each(function ($chunk) {
+        $posts->chunk(20)->each(function ($chunk) {
             DB::table('posts')->insert($chunk->toArray());
         });
     }

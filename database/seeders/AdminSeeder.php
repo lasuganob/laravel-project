@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
             'email' => "leo@ipp.ph",
             'is_admin' => 1,
             'email_verified_at' => now(),
-            'password' => Hash::make('user1234'),
+            'password' => Hash::make('admin1234'),
             'remember_token' => Str::random(10),
         ];
 

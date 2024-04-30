@@ -2,12 +2,12 @@
 
 namespace App\Livewire\Forms;
 
+use App\Http\Requests\PostRequest;
 use Livewire\Form;
 use App\Models\Post;
 
 class PostForm extends Form
 {
-    // public $post;
     public ?Post $post = null;
     public $title = '';
     public $content = '';

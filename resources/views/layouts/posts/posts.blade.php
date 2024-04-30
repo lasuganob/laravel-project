@@ -1,6 +1,5 @@
 <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-5 mb-3">
     <a class="btn btn-primary me-md-2" type="button" href="{{ route(role_prefix() . '.posts.create') }}"><i class="bi bi-plus-circle-fill"></i> Add Post</a>
-    {{-- <button class="btn btn-primary me-md-2" data-bs-toggle="modal" data-bs-target="#addPostModal" wire:click="$emit('addPostModal')"><i class="bi bi-plus-circle-fill"></i> Add Post</button> --}}
 </div>
 
 <div class="container">

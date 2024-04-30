@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\PostController;
+
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\User;
 
@@ -23,13 +25,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/',[User\UserPostController::class, 'index'])->name('home');
 
-    // Routes for ajax route call (datatables)
-    Route::get('/admin/posts/data', [Admin\AdminPostController::class, 'getPosts'])->name('admin.posts.data');
-    Route::get('/user/posts/data',[User\UserPostController::class, 'getPosts'])->name('user.posts.data');
-
     // Admin Routes
     Route::middleware('is_admin')->group(function () {
-        Route::resource('/admin/posts', Admin\AdminPostController::class, [
+        // Routes for ajax route call (datatables)
+        Route::get('/admin/posts/data', [PostController::class, 'getPosts'])->name('admin.posts.data');
+
+        Route::resource('/admin/posts', PostController::class, [
             'names' => [
                 'index' => 'admin.posts.index',
                 'show' => 'admin.posts.show',
@@ -40,7 +41,7 @@ Route::middleware('auth')->group(function () {
         ])->except(['store', 'update']);
 
         Route::middleware('sanitize')->group(function () {
-            Route::resource('/admin/posts', Admin\AdminPostController::class, [
+            Route::resource('/admin/posts', PostController::class, [
                 'names' => [
                     'store' => 'admin.posts.store',
                     'update' => 'admin.posts.update',
@@ -51,7 +52,10 @@ Route::middleware('auth')->group(function () {
 
     //User Route
     Route::middleware('is_user')->group(function () {
-        Route::resource('/user/posts', User\UserPostController::class, [
+        // Routes for ajax route call (datatables)
+        Route::get('/user/posts/data',[PostController::class, 'getPosts'])->name('user.posts.data');
+
+        Route::resource('/user/posts', PostController::class, [
             'names' => [
                 'index' => 'user.posts.index',
                 'show' => 'user.posts.show',
@@ -61,8 +65,8 @@ Route::middleware('auth')->group(function () {
             ]
         ])->except(['store', 'update']);
 
-        Route::middleware('sanitizeText')->group(function () {
-            Route::resource('/user/posts', User\UserPostController::class, [
+        Route::middleware('sanitize')->group(function () {
+            Route::resource('/user/posts', PostController::class, [
                 'names' => [
                     'store' => 'user.posts.store',
                     'update' => 'user.posts.update',
