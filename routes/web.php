@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/',[User\UserPostController::class, 'index'])->name('home');
+    Route::get('/',[PostController::class, 'index'])->name('home');
 
     // Admin Routes
     Route::middleware('is_admin')->group(function () {
