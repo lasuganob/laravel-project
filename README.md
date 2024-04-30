@@ -9,7 +9,7 @@
 **Note:** I used ***Laragon*** as my development environment.
 
 1. Clone repository and switch to `dev` branch.
-2. Set virtual hosts in laragon settings to `{name}.local`.
+2. Set virtual hosts in laragon settings to `{name}.test`.
 3. Setup DB in `phpmyadmin`, make sure the DB name matches with the `DB_DATABASE` value in `.env`.
 5. Run `composer install` & `npm install` to install dependencies.
 6. Run `php artisan key:generate`
